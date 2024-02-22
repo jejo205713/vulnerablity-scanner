@@ -13,41 +13,41 @@ Before running the script, ensure that you have the following prerequisites inst
 
 Install Python packages:
 
-```bash
+```
 pip install python-nmap tqdm
-'''
+```
 
 TO INSTALL NMAP :
-'''
+```
 # For Ubuntu/Debian
 sudo apt-get update
 sudo apt-get install nmap
-'''
+```
 # For CentOS/RHEL
-'''
+```
 sudo yum install nmap
-'''
+```
 TO INSTALL SEARCHSPLOIT :
 # For Ubuntu/Debian
-'''
+```
 sudo apt-get install exploitdb
-'''
+```
 # For CentOS/RHEL
-'''
+```
 sudo yum install exploitdb
-'''
+```
 
 USAGE:
 
 1.clone the repo
-'''
+```
 git clone https://github.com/your-username/vulnerability-scanner.git
 cd vulnerability-scanner
-'''
+```
 2.run the script
-'''
+```
 python vulnerability_scanner.py
-'''
+```
 
 #Follow the on-screen instructions to choose the scan type and enter the target IP address.
 
