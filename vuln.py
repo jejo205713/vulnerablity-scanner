@@ -1,7 +1,16 @@
-#CODEBYJO
 import nmap
+import os
 import subprocess
 from tqdm import tqdm
+import pyfiglet
+
+# Function to print Figlet ASCII art
+def print_ascii_art():
+    ascii_art = os.system("cowsay 'Vulnerability Scanner'")
+    print(ascii_art)
+    print("CAUTION: Re-run the script with root privilege!")
+    print("The script scans the target IP range and checks whether it has any open ports and whether it could be exploited...!")
+    print("CREDITS: DEDSEC-TEAM...!")
 
 def port_scan(target_ip, arguments):
     nm = nmap.PortScanner()
@@ -50,19 +59,21 @@ def check_exploits(service):
     return False  # No vulnerability found
 
 if __name__ == "__main__":
+    print_ascii_art()  # Print Figlet ASCII art
     while True:
         print("\nMenu:")
         print("1. Port Scan with Version Detection (-sV)")
         print("2. Stealth Scan (-sS)")
+        print("3. nslookup")
         print("0. Exit")
 
-        choice = input("Enter your choice (0-2): ")
+        choice = input("Enter your choice (0-3): ")
 
         if choice == '0':
             break
         elif choice == '1':
             target_ip = input("Enter the target IP address: ")
-            vulnerabilities_found = port_scan(target_ip, '-p 1-65535 -sV')
+            vulnerabilities_found = port_scan(target_ip, '-p 1-1000 -sV')
 
             if vulnerabilities_found:
                 print("\nThe server is vulnerable.")
@@ -72,10 +83,9 @@ if __name__ == "__main__":
 
             if vulnerabilities_found:
                 print("\nThe server is vulnerable.")
+        elif choice == '3':
+            target = input("Enter website name or IP: ")
+            os.system(f"nslookup {target}")
         else:
             print("Invalid choice. Please enter a valid option.")
 
-
-
-
-#CODEBYJEJO
