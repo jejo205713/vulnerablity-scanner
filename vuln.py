@@ -10,8 +10,6 @@ def port_scan(target_ip, arguments):
     nm = nmap.PortScanner()
     nm.scan(hosts=target_ip, arguments=arguments)
 
-    exploits_found = []
-
     for host in nm.all_hosts():
         print(f"Open ports for {host}:")
         for proto in nm[host].all_protocols():
@@ -19,29 +17,33 @@ def port_scan(target_ip, arguments):
 
             # Initialize tqdm progress bar
             total_ports = len(list(ports))
-            progress_bar = tqdm(ports, desc="Scanning ports", unit="port", colour='green')
+            progress_bar = tqdm(ports, desc=f"Scanning ports for {host}", unit="port", colour='green')
 
             for port in progress_bar:
                 service = nm[host][proto][port]
-                print(f"Port {port}/{proto} is open. Service: {service['name']}")
+                print(f"Port {port}/{proto} is open. Service: {service['name']}, Version: {service['product']} {service['version']}")
+                check_exploits(service)
 
-                # Check for exploits using searchsploit
-                exploit_search_result = search_exploit(service['name'], service['version'])
-                if exploit_search_result:
-                    exploits_found.extend([(port, version) for version in exploit_search_result])
+def check_exploits(service):
+    product = service['product']
+    version = service['version']
 
-    return exploits_found
+    if product and version:
+        print(f"Checking Exploit Database for {product} {version}...")
+        search_result = subprocess.run(['searchsploit', f'{product} {version}'], stdout=subprocess.PIPE, text=True)
 
-def search_exploit(service_name, service_version):
-    search_command = f"searchsploit '{service_name} {service_version}'"
-    
-    try:
-        result = subprocess.check_output(search_command, shell=True, text=True)
-        exploits_found = result.strip().split('\n')
-        return exploits_found
-    except subprocess.CalledProcessError:
-        print("Error searching for exploits.")
-        return []
+        if search_result.returncode == 0:
+            exploits = search_result.stdout.strip().split('\n')
+            if exploits:
+                print("Possible exploits found:")
+                for exploit in exploits:
+                    print(exploit)
+            else:
+                print("No exploits found.")
+        else:
+            print("Error occurred while searching Exploit Database.")
+    else:
+        print("Product or version information not available for exploitation check.")
 
 if __name__ == "__main__":
     while True:
@@ -56,12 +58,7 @@ if __name__ == "__main__":
             break
         elif choice == '1':
             target_ip = input("Enter the target IP address: ")
-            exploits = port_scan(target_ip, '-p 1-65535 -sV')
-
-            if exploits:
-                print("\nVulnerable Versions Found:")
-                for port, version in exploits:
-                    print(f"Port {port} - Vulnerable Version: {version}")
+            port_scan(target_ip, '-p 1-65535 -sV')
         elif choice == '2':
             target_ip = input("Enter the target IP address: ")
             port_scan(target_ip, '-sS')

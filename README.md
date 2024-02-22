@@ -1,20 +1,56 @@
-- 👋 Hi, I’m @jejo205713
-- 👀 I’m interested in ... cybersecurity|linux|ricing|ethical-hacking...
+ # Vulnerability Scanner with Exploit Check
+
+This Python script utilizes Nmap to perform a port scan with version detection (-sV) and checks for possible exploits using the Exploit Database. The script provides a simple menu allowing the user to choose between a port scan with version detection, a stealth scan (-sS), or exit.
+
+## Prerequisites
+
+Before running the script, ensure that you have the following prerequisites installed on your system:
+
+- Python 3
+- Nmap
+- searchsploit
+- tqdm
+
+Install Python packages:
+
+```bash
+pip install python-nmap tqdm
+
+TO INSTALL NMAP :
+# For Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install nmap
+
+# For CentOS/RHEL
+sudo yum install nmap
+
+TO INSTALL SEARCHSPLOIT :
+
+# For Ubuntu/Debian
+sudo apt-get install exploitdb
+
+# For CentOS/RHEL
+sudo yum install exploitdb
 
 
-VULNERABLITY-SCANNER:
+USAGE:
 
-This Python script utilizes the nmap library to automate a vulnerability scan for a given network address. It defines a function, perform_vuln_scan, which conducts both service version detection and vulnerability scans. The scan results, including host information, open ports, and any identified vulnerabilities, are then printed. The script prompts the user to input the target network address and executes the scan, emphasizing the importance of obtaining proper authorization before scanning any network.
+1.clone the repo
 
-the project also has other goals of futher devoloping this script will be updated in future ...
+git clone https://github.com/your-username/vulnerability-scanner.git
+cd vulnerability-scanner
 
-DEPENDENDCIES:
-*pip-nmap
-*pip-tqdm
-*exploitdb
+2.run the script
+
+python vulnerability_scanner.py
 
 
-- 🌱 I’m currently learning ...BE.cyber-security|pentesting| ...
-- 💞️ I’m looking to collaborate on ...any projects im open to all ...
-- 📫 How to reach me ...instagram : @_jejo_j
-- Email :jejo205713@gmail.com
+    Follow the on-screen instructions to choose the scan type and enter the target IP address.
+
+Acknowledgments
+
+    python-nmap
+    searchsploit
+    tqdm
+
+
