@@ -10,6 +10,7 @@ Before running the script, ensure that you have the following prerequisites inst
 - Nmap
 - searchsploit
 - tqdm
+- cowsay 
 
 Install Python packages:
 
@@ -35,6 +36,17 @@ sudo apt-get install exploitdb
 # For CentOS/RHEL
 ```
 sudo yum install exploitdb
+```
+#COWSAY INSTALLATION:
+
+*Arch-based-distro:
+```
+sudo pacman -S cowsay
+```
+
+*debian-based-distro:
+```
+sudo apt install cowsay
 ```
 
 USAGE:
