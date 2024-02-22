@@ -8,6 +8,10 @@ This Python script utilizes the nmap library to automate a vulnerability scan fo
 
 the project also has other goals of futher devoloping this script will be updated in future ...
 
+DEPENDENDCIES:
+*pip-nmap
+*pip-tqdm
+
 - 🌱 I’m currently learning ...BE.cyber-security|pentesting| ...
 - 💞️ I’m looking to collaborate on ...any projects im open to all ...
 - 📫 How to reach me ...instagram : @_jejo_j
