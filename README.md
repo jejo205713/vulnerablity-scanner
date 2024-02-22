@@ -37,7 +37,7 @@ sudo apt-get install exploitdb
 ```
 sudo yum install exploitdb
 ```
-#COWSAY INSTALLATION:
+# COWSAY INSTALLATION:
 
 *Arch-based-distro:
 ```
