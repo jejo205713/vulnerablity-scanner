@@ -1,13 +1,21 @@
 import nmap
+from tqdm import tqdm
+import time
 
 def perform_vuln_scan(target):
     nm = nmap.PortScanner()
 
     # Perform a service version detection scan
-    nm.scan(target, arguments='-sV')
+    print("Running service version detection scan...")
+    with tqdm(total=100, desc="Scanning", unit="%", position=0) as pbar:
+        nm.scan(target, arguments='-sV')
+        pbar.update(50)  # Update progress bar halfway
 
     # Perform a vulnerability scan
-    nm.scan(target, arguments='--script vuln')
+    print("Running vulnerability scan...")
+    with tqdm(total=50, desc="Scanning", unit="%", position=0) as pbar:
+        nm.scan(target, arguments='--script vuln')
+        pbar.update(50)  # Update progress bar to completion
 
     # Print scan results
     for host in nm.all_hosts():
