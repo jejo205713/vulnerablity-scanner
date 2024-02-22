@@ -1,5 +1,10 @@
 import nmap
 import subprocess
+from tqdm import tqdm
+
+# ANSI escape codes for green color
+GREEN = "\033[92m"
+RESET = "\033[0m"
 
 def port_scan(target_ip, arguments):
     nm = nmap.PortScanner()
@@ -11,14 +16,19 @@ def port_scan(target_ip, arguments):
         print(f"Open ports for {host}:")
         for proto in nm[host].all_protocols():
             ports = nm[host][proto].keys()
-            for port in ports:
+
+            # Initialize tqdm progress bar
+            total_ports = len(list(ports))
+            progress_bar = tqdm(ports, desc="Scanning ports", unit="port", colour='green')
+
+            for port in progress_bar:
                 service = nm[host][proto][port]
-                print(f"Port {port}/{proto} is open. Service: {service['name']}, Version: {service['product']} {service['version']}")
+                print(f"Port {port}/{proto} is open. Service: {service['name']}")
 
                 # Check for exploits using searchsploit
                 exploit_search_result = search_exploit(service['name'], service['version'])
                 if exploit_search_result:
-                    exploits_found.extend(exploit_search_result)
+                    exploits_found.extend([(port, version) for version in exploit_search_result])
 
     return exploits_found
 
@@ -49,9 +59,9 @@ if __name__ == "__main__":
             exploits = port_scan(target_ip, '-p 1-65535 -sV')
 
             if exploits:
-                print("\nPossible Exploits Found:")
-                for exploit in exploits:
-                    print(exploit)
+                print("\nVulnerable Versions Found:")
+                for port, version in exploits:
+                    print(f"Port {port} - Vulnerable Version: {version}")
         elif choice == '2':
             target_ip = input("Enter the target IP address: ")
             port_scan(target_ip, '-sS')
