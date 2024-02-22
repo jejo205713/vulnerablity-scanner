@@ -1,37 +1,60 @@
 import nmap
-from tqdm import tqdm
-import time
+import subprocess
 
-def perform_vuln_scan(target):
+def port_scan(target_ip, arguments):
     nm = nmap.PortScanner()
+    nm.scan(hosts=target_ip, arguments=arguments)
 
-    # Perform a service version detection scan
-    print("Running service version detection scan...")
-    with tqdm(total=100, desc="Scanning", unit="%", position=0) as pbar:
-        nm.scan(target, arguments='-sV')
-        pbar.update(50)  # Update progress bar halfway
+    exploits_found = []
 
-    # Perform a vulnerability scan
-    print("Running vulnerability scan...")
-    with tqdm(total=50, desc="Scanning", unit="%", position=0) as pbar:
-        nm.scan(target, arguments='--script vuln')
-        pbar.update(50)  # Update progress bar to completion
-
-    # Print scan results
     for host in nm.all_hosts():
-        print(f"Host: {host}")
-        print(f"State: {nm[host].state()}")
+        print(f"Open ports for {host}:")
         for proto in nm[host].all_protocols():
-            print(f"Protocol: {proto}")
             ports = nm[host][proto].keys()
             for port in ports:
-                print(f"Port: {port}\tState: {nm[host][proto][port]['state']}\tService: {nm[host][proto][port]['name']}")
-                if 'scripts' in nm[host][proto][port]:
-                    scripts = nm[host][proto][port]['scripts']
-                    for script_name, script_output in scripts.items():
-                        print(f"  {script_name}: {script_output}")
+                service = nm[host][proto][port]
+                print(f"Port {port}/{proto} is open. Service: {service['name']}, Version: {service['product']} {service['version']}")
+
+                # Check for exploits using searchsploit
+                exploit_search_result = search_exploit(service['name'], service['version'])
+                if exploit_search_result:
+                    exploits_found.extend(exploit_search_result)
+
+    return exploits_found
+
+def search_exploit(service_name, service_version):
+    search_command = f"searchsploit '{service_name} {service_version}'"
+    
+    try:
+        result = subprocess.check_output(search_command, shell=True, text=True)
+        exploits_found = result.strip().split('\n')
+        return exploits_found
+    except subprocess.CalledProcessError:
+        print("Error searching for exploits.")
+        return []
 
 if __name__ == "__main__":
-    target_address = input("Enter the target network address (e.g., 192.168.1.1): ")
-    perform_vuln_scan(target_address)
+    while True:
+        print("\nMenu:")
+        print("1. Port Scan with Version Detection (-sV)")
+        print("2. Stealth Scan (-sS)")
+        print("0. Exit")
+
+        choice = input("Enter your choice (0-2): ")
+
+        if choice == '0':
+            break
+        elif choice == '1':
+            target_ip = input("Enter the target IP address: ")
+            exploits = port_scan(target_ip, '-p 1-65535 -sV')
+
+            if exploits:
+                print("\nPossible Exploits Found:")
+                for exploit in exploits:
+                    print(exploit)
+        elif choice == '2':
+            target_ip = input("Enter the target IP address: ")
+            port_scan(target_ip, '-sS')
+        else:
+            print("Invalid choice. Please enter a valid option.")
 

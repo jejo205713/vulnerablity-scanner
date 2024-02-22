@@ -11,6 +11,8 @@ the project also has other goals of futher devoloping this script will be update
 DEPENDENDCIES:
 *pip-nmap
 *pip-tqdm
+*exploitdb
+
 
 - 🌱 I’m currently learning ...BE.cyber-security|pentesting| ...
 - 💞️ I’m looking to collaborate on ...any projects im open to all ...
