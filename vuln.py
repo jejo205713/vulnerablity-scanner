@@ -2,13 +2,11 @@ import nmap
 import subprocess
 from tqdm import tqdm
 
-# ANSI escape codes for green color
-GREEN = "\033[92m"
-RESET = "\033[0m"
-
 def port_scan(target_ip, arguments):
     nm = nmap.PortScanner()
     nm.scan(hosts=target_ip, arguments=arguments)
+
+    vulnerabilities_found = False
 
     for host in nm.all_hosts():
         print(f"Open ports for {host}:")
@@ -17,12 +15,14 @@ def port_scan(target_ip, arguments):
 
             # Initialize tqdm progress bar
             total_ports = len(list(ports))
-            progress_bar = tqdm(ports, desc=f"Scanning ports for {host}", unit="port", colour='green')
+            progress_bar = tqdm(ports, desc=f"Scanning ports for {host}", unit="port")
 
             for port in progress_bar:
                 service = nm[host][proto][port]
                 print(f"Port {port}/{proto} is open. Service: {service['name']}, Version: {service['product']} {service['version']}")
-                check_exploits(service)
+                vulnerabilities_found |= check_exploits(service)
+
+    return vulnerabilities_found
 
 def check_exploits(service):
     product = service['product']
@@ -38,12 +38,15 @@ def check_exploits(service):
                 print("Possible exploits found:")
                 for exploit in exploits:
                     print(exploit)
+                return True  # Vulnerability found
             else:
                 print("No exploits found.")
         else:
             print("Error occurred while searching Exploit Database.")
     else:
         print("Product or version information not available for exploitation check.")
+
+    return False  # No vulnerability found
 
 if __name__ == "__main__":
     while True:
@@ -58,10 +61,16 @@ if __name__ == "__main__":
             break
         elif choice == '1':
             target_ip = input("Enter the target IP address: ")
-            port_scan(target_ip, '-p 1-65535 -sV')
+            vulnerabilities_found = port_scan(target_ip, '-p 1-65535 -sV')
+
+            if vulnerabilities_found:
+                print("\nThe server is vulnerable.")
         elif choice == '2':
             target_ip = input("Enter the target IP address: ")
-            port_scan(target_ip, '-sS')
+            vulnerabilities_found = port_scan(target_ip, '-sS')
+
+            if vulnerabilities_found:
+                print("\nThe server is vulnerable.")
         else:
             print("Invalid choice. Please enter a valid option.")
 
