@@ -57,7 +57,13 @@ python vulnerability_scanner.py
     searchsploit
     tqdm
 
-###CREDITS:
-##JEJO.J - author
-#PADMESH.PS -co author
-#PRIYADHARSHAN -co author
+CREDITS:
+```
+JEJO.J - author
+```
+```
+PADMESH.PS -co author
+```
+```
+PRIYADHARSHAN -co author
+```
