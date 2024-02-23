@@ -1,4 +1,4 @@
- # Vulnerability Scanner 
+ # Vulnerability Scanner with Exploit Check
 
 This Python script utilizes Nmap to perform a port scan with version detection (-sV) and checks for possible exploits using the Exploit Database. The script provides a simple menu allowing the user to choose between a port scan with version detection, a stealth scan (-sS), or exit.
 
@@ -10,15 +10,14 @@ Before running the script, ensure that you have the following prerequisites inst
 - Nmap
 - searchsploit
 - tqdm
-- cowsay 
 
-# Install Python packages:
+Install Python packages:
 
 ```
 pip install python-nmap tqdm
 ```
 
-# TO INSTALL NMAP :
+TO INSTALL NMAP :
 ```
 # For Ubuntu/Debian
 sudo apt-get update
@@ -37,19 +36,8 @@ sudo apt-get install exploitdb
 ```
 sudo yum install exploitdb
 ```
-# COWSAY INSTALLATION:
 
-*Arch-based-distro:
-```
-sudo pacman -S cowsay
-```
-
-*debian-based-distro:
-```
-sudo apt install cowsay
-```
-
-# USAGE:
+USAGE:
 
 1.clone the repo
 ```
@@ -63,13 +51,13 @@ python vulnerability_scanner.py
 
 #Follow the on-screen instructions to choose the scan type and enter the target IP address.
 
-# Acknowledgments
+#Acknowledgments
 
     python-nmap
     searchsploit
     tqdm
 
-## CREDITS:
+CREDITS:
 ```
 JEJO.J - author
 ```
