@@ -46,7 +46,11 @@ cd vulnerability-scanner
 ```
 2.run the script
 ```
-python vulnerability_scanner.py
+sudo python vuln.py
+```
+3.to run the version-2 script:
+```
+sudo python vuln-v2.py
 ```
 
 #Follow the on-screen instructions to choose the scan type and enter the target IP address.
