@@ -2,16 +2,20 @@ import nmap
 import os
 import subprocess
 from tqdm import tqdm
-import pyfiglet
 
-# Function to print Figlet ASCII art
+# INTRO - BLAH BLAH 
 def print_ascii_art():
-    ascii_art = os.system("cowsay 'Vulnerability Scanner'")
-    print(ascii_art)
-    print("CAUTION: Re-run the script with root privilege!")
-    print("The script scans the target IP range and checks whether it has any open ports and whether it could be exploited...!")
-    print("CREDITS: DEDSEC-TEAM...!")
+    os.system("cowsay 'Vulnerability Scanner'")
+    print("####################################################################################################################")
+    print("#  The script scans the target IP and checks whether it has any open ports and whether it could be exploited...🚀  #")
+    print("####################################################################################################################")
+    print("⚠️CAUTION:It is only for educational purpose not be used unethically...!")
+    print("CREDITS:\n 🚀 JEJO_J \n 🚀PADMESH_PS \n 🚀PRIYADHARSHAN_V")
+    print("#####################################################################################")
+    print("# Suppourt our project @ GITHUB:https://github.com/jejo205713/vulnerablity-scanner  #")
+    print("#####################################################################################")
 
+#first scan function 1:
 def port_scan(target_ip, arguments):
     nm = nmap.PortScanner()
     nm.scan(hosts=target_ip, arguments=arguments)
@@ -58,6 +62,8 @@ def check_exploits(service):
 
     return False  # No vulnerability found
 
+
+#MAIN FUCNTION :
 if __name__ == "__main__":
     print_ascii_art()  # Print Figlet ASCII art
     while True:
@@ -76,16 +82,19 @@ if __name__ == "__main__":
             vulnerabilities_found = port_scan(target_ip, '-p 1-1000 -sV')
 
             if vulnerabilities_found:
-                print("\nThe server is vulnerable.")
+                os.system("cowsay 'The server is vulnerable...!'")
         elif choice == '2':
+            print("safer option to scan and to be sneaky requires root privilages...!")
+            print("use $ SUDO PYTHON VULN.PY")
             target_ip = input("Enter the target IP address: ")
             vulnerabilities_found = port_scan(target_ip, '-sS')
 
             if vulnerabilities_found:
-                print("\nThe server is vulnerable.")
+                os.system("cowsay 'The server is vulnerable...!'")
         elif choice == '3':
-            target = input("Enter website name or IP: ")
+            print("nslookup searches and pings and website -> IP add ...!")
+            target = input("Enter the website name or address : ")
             os.system(f"nslookup {target}")
         else:
-            print("Invalid choice. Please enter a valid option.")
+            os.system("cowsay 'Invalid choice. Please enter a valid option.'")
 
