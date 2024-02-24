@@ -2,10 +2,10 @@
 
 This Python script utilizes Nmap to perform a port scan with version detection (-sV) and checks for possible exploits using the Exploit Database. The script provides a simple menu allowing the user to choose between a port scan with version detection, a stealth scan (-sS), or exit.
 
-# THE SCRIPT WITH EDEX-UI:
+# THE SCRIPT WITH EDEX:
 ![MY Image](resources/edex.png)
-# PLAIN-SCRIPT:
-![My Image](resources/vuln-pic.png)
+
+
 ## Prerequisites
 
 Before running the script, ensure that you have the following prerequisites installed on your system:
@@ -14,6 +14,7 @@ Before running the script, ensure that you have the following prerequisites inst
 - Nmap
 - searchsploit
 - tqdm
+- cowsay
 
 Install Python packages:
 
@@ -21,40 +22,41 @@ Install Python packages:
 pip install python-nmap tqdm
 ```
 
-TO INSTALL NMAP :
+To install NMAP:
 ```
 # For Ubuntu/Debian
 sudo apt-get update
 sudo apt-get install nmap
 ```
-# For CentOS/RHEL
+
+To install exploitdatabase :
+For Ubuntu/Debian
 ```
-sudo yum install nmap
-```
-TO INSTALL SEARCHSPLOIT :
-# For Ubuntu/Debian
-```
-sudo apt-get install exploitdb
-```
-# For CentOS/RHEL
-```
-sudo yum install exploitdb
+sudo apt install exploitdb
 ```
 
-USAGE:
+To install cowsay:
+
+For Ubuntu/Debian:
+```
+sudo apt install cowsay
+```
+
+For Archlinux:
+```
+sudo pacman -S cowsay
+```
+
+# USAGE:
 
 1.clone the repo
 ```
-git clone https://github.com/your-username/vulnerability-scanner.git
+git clone https://github.com/your-username/vulnerability-scanner.git &&
 cd vulnerability-scanner
 ```
 2.run the script
 ```
 sudo python vuln.py
-```
-3.to run the version-2 script:
-```
-sudo python vuln-v2.py
 ```
 
 #Follow the on-screen instructions to choose the scan type and enter the target IP address.
@@ -62,16 +64,17 @@ sudo python vuln-v2.py
 #Acknowledgments
 
     python-nmap
-    searchsploit
+    exploitdb
     tqdm
+    cowsay
 
 CREDITS:
 ```
-JEJO.J - author
+JEJO.J - author 🚀😎
 ```
 ```
-PADMESH.PS -co author
+PADMESH.PS -co author 😎
 ```
 ```
-PRIYADHARSHAN -co author
+PRIYADHARSHAN.V -co author 😎
 ```
