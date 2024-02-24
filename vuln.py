@@ -3,6 +3,8 @@ import os
 import subprocess
 from tqdm import tqdm
 
+
+
 # INTRO - BLAH BLAH 
 def print_ascii_art():
     os.system("cowsay 'Vulnerability Scanner'")
@@ -84,16 +86,20 @@ if __name__ == "__main__":
             if vulnerabilities_found:
                 os.system("cowsay 'The server is vulnerable...!'")
         elif choice == '2':
-            print("safer option to scan and to be sneaky requires root privilages...!")
-            print("use $ SUDO PYTHON VULN.PY")
+            print("########################################################################")
+            print("## Safer option to scan and to be sneaky,requires root privilages...! ##")
+            print("########################################################################")
+            print("\nuse $ SUDO PYTHON VULN.PY")
             target_ip = input("Enter the target IP address: ")
             vulnerabilities_found = port_scan(target_ip, '-sS')
 
             if vulnerabilities_found:
                 os.system("cowsay 'The server is vulnerable...!'")
         elif choice == '3':
-            print("nslookup searches and pings and website -> IP add ...!")
-            target = input("Enter the website name or address : ")
+            print("#########################################################")
+            print("## nslookup searches and finds the website IP add ...! ##")
+            print("#########################################################")
+            target = input("\nEnter the website name or address : ")
             os.system(f"nslookup {target}")
         else:
             os.system("cowsay 'Invalid choice. Please enter a valid option.'")
